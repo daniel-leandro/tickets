@@ -61,7 +61,7 @@
       .state('eventos.remove', {
         url: '/:eventoId/excluir',
         templateUrl: 'modules/eventos/views/excluir-evento.client.view.html',
-        controller: 'EventosController',
+        controller: 'ExcluirEventosController',
         controllerAs: 'vm',
         resolve: {
           eventoResolve: getEvento

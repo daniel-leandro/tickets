@@ -5,7 +5,7 @@
   </div>
 
   <p>
-    Data: {{vm.evento.data  | date:'dd/MM/yyyy'}}
+    Data: {{vm.evento.data  | date:'dd/MM/yyyy'  : 'UTC'}}
   </p>
   <p>
     Descrição: {{vm.evento.descricao}}

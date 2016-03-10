@@ -5,6 +5,7 @@
   </div>
 
  
+ 
   <table class="table">
       <thead>
         <tr>
@@ -38,36 +39,28 @@
      
         
         </tr>
-     
-        <tr ng-repeat="evento in vm.eventos  | filter:search">
-          <td colspan=6>
-          <table style="width:  100%;">
-     
-          <tr>
-          <td>
-            {{evento.data | date:'dd/MM/yyyy'}}
-          </td>
-          </tr>
-          <tr>
-             <td><a  
-       data-ui-sref="eventos.nextview({ eventoId: evento._id })"
-     >{{evento.nome}}</a></td>
-          <td ng-if="evento.tipo==1">Show</td>
-          <td ng-if="evento.tipo==2">Balada</td>
-          <td ng-if="evento.tipo==3">Teatro</td>
-          <td ng-if="evento.tipo==4">Esporte</td>
+
+        <tr ng-repeat="eventosPorData in datesToFilter() | filter:filterDates">
+          <td colspan=3 >
+            <table>
+              <tr >
+                <td ><h3>{{eventosPorData.data  | date:'dd/MM/yyyy' : 'UTC'}}</h3></td>
+              </tr>
+              <tr ng-repeat="evento in vm.eventos | filter:{data: eventosPorData.data} | filter:search" >
+                 <td style=" width: 460px;">
+              <a  data-ui-sref="eventos.nextview({ eventoId: evento._id })" >
+             {{evento.nome}}
+             </a></td>
+          <td  style=" width: 220px;" ng-if="evento.tipo==1">Show</td>
+          <td  style=" width: 220px;" ng-if="evento.tipo==2">Balada</td>
+          <td  style=" width: 220px;" ng-if="evento.tipo==3">Teatro</td>
+          <td  style=" width: 220px;" ng-if="evento.tipo==4">Esporte</td>
     <td>{{evento.organizador}}</td>
-        
-        
-
-          </tr>
-          </table></td>
-         
- 
-    
-       
-
+              </tr>
+            </table>
+          </td>
         </tr>
+     
       </tbody>
     </table>
  

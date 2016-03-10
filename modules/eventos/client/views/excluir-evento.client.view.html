@@ -1,0 +1,20 @@
+<section>
+  <div class="page-header">
+    <h1>Excluir evento</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.form.eventoForm" id="eventoForm" class="form-horizontal" ng-submit="vm.remove()" novalidate>
+      <p>Deseja realmente excluir o evento {{vm.evento.nome}}?</p>
+      <fieldset>
+         
+        <div class="form-group">
+          <button type="submit" class="btn btn-default">Excluir</button>
+        </div>
+           <p><a data-ui-sref="eventos.list">Ver outros eventos</a></p>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>

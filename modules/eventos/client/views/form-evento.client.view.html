@@ -12,7 +12,9 @@
         </div>
         <div class="form-group" show-errors>
           <label class="control-label" for="data">Data</label>
-          <input name="data" type="text"   ng-model="vm.evento.data" id="data" class="form-control" placeholder="Data" required>
+          <input name="data" type="text" readonly="readonly"    ng-model="vm.evento.data" id="data" class="form-control" placeholder="Data" required>
+
+
 
         <script>
         jQuery.noConflict();
@@ -51,7 +53,8 @@
        
       
         </div>
-          <div class="form-group" show-errors>
+        
+          <div class="form-group" show-errors ng-if="vm.futureEvent >= 1">
           <label class="control-label" for="tipo">Situação</label><br/>
           <label>
           <input type="radio" ng-model="vm.evento.situacao" value="1">
@@ -63,6 +66,9 @@
         </label> 
       
         </div>
+         
+        <div ng-if="vm.futureEvent < 1"> <label>O evento já ocorreu e portanto não é possível alterar sua situação (Publicado ou não publicado) </label></div>
+
         <div class="form-group">
           <button type="submit" class="btn btn-default">{{vm.evento._id ? 'Atualizar' : 'Cadastrar'}}</button>
         </div>
