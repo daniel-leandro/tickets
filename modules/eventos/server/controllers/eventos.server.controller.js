@@ -136,10 +136,10 @@ exports.eventoByID = function(req, res, next, id) {
   }
   var eventTickets;
    Ticket.find({evento :  id }, function (err, docs) {
-        if (docs.length){
+       // if (docs.length){
           eventTickets = docs;
             
-        }
+        //}
     });
 
   Evento.findById(id).populate('user', 'displayName').exec(function (err, evento) {

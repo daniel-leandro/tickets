@@ -22,8 +22,10 @@
     Lotação Máxima: {{vm.evento.lotacao}}
   </p>
   <p>
+
     <button class="btn btn-primary" ng-if="vm.evento.tickets.length < vm.evento.lotacao"  data-ui-sref="tickets.create({ eventoId: vm.evento._id })">Solicitar Participação</button>
      <button class="btn btn-danger" ng-if="vm.evento.tickets.length >= vm.evento.lotacao">Inscrições esgotadas</button>
+ 
   </p>
   <p><a data-ui-sref="eventos.next">Conheça nossos outros eventos</a></p>
   
