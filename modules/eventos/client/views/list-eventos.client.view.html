@@ -1,0 +1,95 @@
+<section>
+  <div class="page-header">
+    <h1>Eventos</h1>
+    <button class="btn btn-primary"  data-ui-sref="eventos.create">Cadastrar Evento</button>
+  </div>
+ 
+  <table class="table">
+      <thead>
+        <tr>
+          <th>Nome</th>         
+          <th>Data</th>
+          <th>Organizador</th>
+          <th>Descrição</th>
+          <th>Lotação Máxima</th>
+        
+          <th>Tipo</th>
+          <th>Situação</th>
+          <th>Ações</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td>
+          <input type="text" ng-model="search.nome">
+        </td>
+        <td>
+ 
+            <input name="data" type="text"  ng-model="search.data" id="data" class="form-control" placeholder="Data"  >
+
+        <script>
+        jQuery.noConflict();
+        jQuery(function() {
+          jQuery( "#data" ).datepicker({  defaultDate: "+1d", minDate: 1, dateFormat: "yy-mm-dd"});
+
+        });
+  </script>
+        </td>
+        <td>
+          <input type="text" ng-model="search.organizador">
+        </td>
+        <td>
+          <input type="text" ng-model="search.descricao">
+        </td>
+        <td>
+          <input type="text" ng-model="search.lotacao">
+        </td>
+          <td>
+          <select ng-model="search.tipo">
+            <option value="">Todos</option>
+            <option value="1">Show</option>
+            <option value="2">Balada</option>
+            <option value="3">Teatro</option>
+            <option value="4">Esporte</option>
+          </select>
+        </td>
+
+         <td>
+          <select ng-model="search.situacao">
+             <option value="">Todos</option>
+            <option value="0">Não Publicado</option>
+            <option value="1">Publicado</option>
+          </select>
+        </td>
+        </tr>
+        <tr ng-repeat="evento in vm.eventos  | filter:search">
+          <td><a  
+       data-ui-sref="eventos.view({ eventoId: evento._id })"
+     >{{evento.nome}}</a></td>
+          <td>{{evento.data | date:'dd/MM/yyyy'}}</td>
+          <td>{{evento.organizador}}</td>
+          <td>{{evento.descricao}}</td>
+          <td>{{evento.lotacao}}</td>
+          
+
+          <td ng-if="evento.tipo==1">Show</td>
+          <td ng-if="evento.tipo==2">Balada</td>
+          <td ng-if="evento.tipo==3">Teatro</td>
+          <td ng-if="evento.tipo==4">Esporte</td>
+
+          <td ng-if="evento.situacao==0">Não Publicado</td>
+          <td ng-if="evento.situacao==1">Publicado</td>
+
+          <td>
+            <a  class="btn btn-warning"  data-ui-sref="eventos.edit({ eventoId: evento._id })">Editar</a>
+            
+           <td> <a  class="btn btn-danger"  data-ui-sref="eventos.remove({ eventoId: evento._id })">Excluir</a></td>
+        </tr>
+      </tbody>
+    </table>
+ 
+  <div class="alert alert-warning text-center" data-ng-if="vm.eventos.$resolved && !vm.eventos.length">
+    Não há eventos cadastrados. <a data-ui-sref="eventos.create">Clique aqui e cadastre!</a> 
+  </div>
+</section>

@@ -1,0 +1,31 @@
+<section>
+  <div class="page-header">
+    <h1>Solicitação de Participação</h1>
+  </div>
+  <p>
+    Evento: {{vm.evento.nome}}
+  </p>
+  <div class="col-md-12">
+    <form name="vm.form.ticketForm" class="form-horizontal" ng-submit="vm.save(vm.form.ticketForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="nome">Nome</label> 
+          <input name="evento" type="hidden"  id="evento" class="form-control" placeholder="Evento" value="{{vm.evento._id}}" required>
+          <input name="nome" type="text" ng-model="vm.ticket.nome" id="nome" class="form-control" placeholder="Nome" required>
+        
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="cpf">CPF</label>
+          <input name="cpf" type="text" ng-model="vm.ticket.cpf" id="cpf" class="form-control" placeholder="CPF" required>
+        
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-default">Solicitar</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>

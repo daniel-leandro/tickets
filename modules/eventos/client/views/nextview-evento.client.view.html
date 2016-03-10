@@ -1,0 +1,30 @@
+<section>
+  <div class="page-header">
+    <h1 data-ng-bind="vm.evento.nome"></h1>
+  </div>
+  
+  <p>
+    Data: {{vm.evento.data  | date:'dd/MM/yyyy'}}
+  </p>
+  <p>
+    Descrição: {{vm.evento.descricao}}
+  </p>
+  <p>
+    Organizador: {{vm.evento.organizador}}
+  </p>
+  <p>
+    Tipo:  <span ng-if="vm.evento.tipo==1">Show</span>
+          <span ng-if="vm.evento.tipo==2">Balada</span>
+          <span ng-if="vm.evento.tipo==3">Teatro</span>
+          <span ng-if="vm.evento.tipo==4">Esporte</span>
+  </p>
+  <p>
+    Lotação Máxima: {{vm.evento.lotacao}}
+  </p>
+  <p>
+    <button class="btn btn-primary" ng-if="vm.evento.tickets.length < vm.evento.lotacao"  data-ui-sref="tickets.create({ eventoId: vm.evento._id })">Solicitar Participação</button>
+     <button class="btn btn-danger" ng-if="vm.evento.tickets.length >= vm.evento.lotacao">Inscrições esgotadas</button>
+  </p>
+  <p><a data-ui-sref="eventos.next">Conheça nossos outros eventos</a></p>
+  
+</section>

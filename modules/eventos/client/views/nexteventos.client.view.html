@@ -1,0 +1,77 @@
+<section>
+  <div class="page-header">
+    <h1>Próximos Eventos</h1>
+    
+  </div>
+
+ 
+  <table class="table">
+      <thead>
+        <tr>
+          <th>Nome</th>         
+       
+          <th>Tipo</th>
+          <th>Organizador</th>
+           
+         
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td>
+          <input type="text" ng-model="search.nome">
+        </td>
+       
+          <td>
+          <select ng-model="search.tipo">
+            <option value="">Todos</option>
+            <option value="1">Show</option>
+            <option value="2">Balada</option>
+            <option value="3">Teatro</option>
+            <option value="4">Esporte</option>
+          </select>
+        </td>
+
+        <td>
+          <input type="text" ng-model="search.organizador">
+        </td>
+     
+        
+        </tr>
+     
+        <tr ng-repeat="evento in vm.eventos  | filter:search">
+          <td colspan=6>
+          <table style="width:  100%;">
+     
+          <tr>
+          <td>
+            {{evento.data | date:'dd/MM/yyyy'}}
+          </td>
+          </tr>
+          <tr>
+             <td><a  
+       data-ui-sref="eventos.nextview({ eventoId: evento._id })"
+     >{{evento.nome}}</a></td>
+          <td ng-if="evento.tipo==1">Show</td>
+          <td ng-if="evento.tipo==2">Balada</td>
+          <td ng-if="evento.tipo==3">Teatro</td>
+          <td ng-if="evento.tipo==4">Esporte</td>
+    <td>{{evento.organizador}}</td>
+        
+        
+
+          </tr>
+          </table></td>
+         
+ 
+    
+       
+
+        </tr>
+      </tbody>
+    </table>
+ 
+  <div class="alert alert-warning text-center" data-ng-if="vm.eventos.$resolved && !vm.eventos.length">
+    Não há eventos cadastrados.
+  </div>
+</section>

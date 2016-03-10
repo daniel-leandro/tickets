@@ -1,0 +1,39 @@
+<section>
+  <div class="page-header">
+    <h1>Tickets</h1>
+  </div>
+
+<table class="table">
+      <thead>
+        <tr>
+          <th>Código</th>         
+          <th>Nome</th>         
+          <th>CPF</th>
+          <th>Evento</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td>
+          <input type="text" ng-model="search.nome">
+        </td>
+        
+        <td>
+          <input type="text" ng-model="search.cpf">
+        </td>
+        
+        </tr>
+        <tr ng-repeat="ticket in vm.tickets  | filter:search">
+          <td>{{ticket._id}}</td>
+          <td><a  
+       data-ui-sref="tickets.view({ ticketId: ticket._id,   eventoId: ticket.evento })"
+     >{{ticket.nome}}</a></td>
+           
+          <td>{{ticket.cpf}}</td>
+          <td>{{ticket.evento}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+ 
+</section>
