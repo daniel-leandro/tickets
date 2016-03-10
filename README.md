@@ -27,6 +27,7 @@ Após executar o comando **grunt**, a aplicação estará rodando na porta 3000.
 - Eventos (Responsável pelo CRUD de eventos e a listagem dos próximos eventos)
 - Tickets (Registro de inscrições nos eventos)
 
+
 ### Testes Unitários
 
 Os arquivos contendo os testes unitários de rotas, controller e model estão presentes no diretório 'tests' dentro de cada módulo
@@ -37,4 +38,35 @@ Os arquivos contendo os testes unitários de rotas, controller e model estão pr
 ```sh
 $ grunt test
 ```  
+
+
+### Screenshots
+Dashboard:
+![](https://raw.githubusercontent.com/daniel-leandro/tickets/master/screenshots/dashboard.png)
+Próximos eventos:
+![](https://raw.githubusercontent.com/daniel-leandro/tickets/master/screenshots/proximos-eventos.png)
+Detalhes do Evento:
+![](https://raw.githubusercontent.com/daniel-leandro/tickets/master/screenshots/evento.png)
+Solicitação de Participação:
+![](https://raw.githubusercontent.com/daniel-leandro/tickets/master/screenshots/solicitacao-participacao.png)
+Inscrição realizada:
+![](https://raw.githubusercontent.com/daniel-leandro/tickets/master/screenshots/inscricao-realizada.png)
+ Lembrete de Participação (no caso de o CPF já estar inscrito):
+![](https://raw.githubusercontent.com/daniel-leandro/tickets/master/screenshots/lembrete-inscricao.png)
+Inscrições esgotadas (no caso de o número de inscrições for igual à lotação máxima do evento):
+![](https://raw.githubusercontent.com/daniel-leandro/tickets/master/screenshots/inscricoes-esgotadas.png)
+Admin / Lista de eventos (Analista de eventos):
+![](https://raw.githubusercontent.com/daniel-leandro/tickets/master/screenshots/admin-lista-eventos.png)
+Admin / Detalhes do evento:
+Através de websocket, as inscrições e o indicador de inscrições são atualizados em tempo real
+![](https://raw.githubusercontent.com/daniel-leandro/tickets/master/screenshots/admin-detalhes-evento.png)
+Admin / Editar evento:
+![](https://raw.githubusercontent.com/daniel-leandro/tickets/master/screenshots/admin-editar-evento.png)
+Admin / Editar um evento já realizado:
+Exibe a mensagem que não é permitido alterar a situação de publicação
+![](https://raw.githubusercontent.com/daniel-leandro/tickets/master/screenshots/admin-editar-evento-realizado.png)
+Admin / Excluir evento:
+![](https://raw.githubusercontent.com/daniel-leandro/tickets/master/screenshots/admin-excluir-evento.png)
+
+
  
