@@ -16,14 +16,14 @@ exports.create = function(req, res) {
   
 
   Ticket.find({evento : req.body.evento, cpf : req.body.cpf}, function (err, docs) {
-        if (docs.length){
-            var ticket = docs[0];
-            ticket['already_register'] = '1';
-            ticket.save();
-           
-            res.jsonp(ticket );
-        }else{
-           var ticket = new Ticket(req.body);
+    var ticket;
+      if (docs.length){
+        ticket = docs[0];
+        ticket['already_register'] = '1';
+        ticket.save();
+        res.jsonp(ticket );
+      }else{
+            ticket = new Ticket(req.body);
           ticket.user = req.user;
 
           ticket.save(function(err) {

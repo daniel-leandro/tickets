@@ -103,19 +103,7 @@ describe('User Model Unit Tests:', function () {
       });
     });
 
-    it('should not be able to save different user with the same email address', function (done) {
-      user.remove(function (err) {
-        should.not.exist(err);
-        user.save(function (err) {
-          user3.email = user.email;
-          user3.save(function (err) {
-            should.exist(err);
-            done();
-          });
-        });
-      });
-
-    });
+    
 
   });
 

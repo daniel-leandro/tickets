@@ -16,7 +16,7 @@ var app, agent, credentials, user, evento;
 /**
  * Evento routes tests
  */
-describe('CRUD "Evento" - Testes Unitários', function () {
+describe('Rotas "Evento" - Testes Unitários', function () {
 
   before(function (done) {
     // Get application
@@ -28,9 +28,16 @@ describe('CRUD "Evento" - Testes Unitários', function () {
  
   beforeEach(function(done) {
     
-      evento = {
-        name: 'Nome do Evento'
-      };
+       evento = new Evento({
+        nome: 'Nome do Evento',
+        organizador: 'Nome do Organizador',
+        data: "2016-03-14 00:00:00",
+        lotacao: 100,
+        tipo: 1,
+        situacao: 1,
+       
+      });
+      done();
 
       
   });
@@ -38,7 +45,7 @@ describe('CRUD "Evento" - Testes Unitários', function () {
 
   it('Não permitir salvar um evento sem informar o nome', function (done) {
     // Invalidate name field
-    evento.name = '';
+    evento.nome = '';
 
   
 
@@ -48,7 +55,7 @@ describe('CRUD "Evento" - Testes Unitários', function () {
           .expect(400)
           .end(function (eventoSaveErr, eventoSaveRes) {
             // Set message assertion
-            (eventoSaveRes.body.message).should.match('Please fill Evento name');
+            (eventoSaveRes.body.message).should.match('Nome do Evento');
 
             // Handle Evento save error
             done(eventoSaveErr);
@@ -56,18 +63,8 @@ describe('CRUD "Evento" - Testes Unitários', function () {
       
   });
 
-  it('should be able to update an Evento if signed in', function (done) {
-    agent.post('/api/auth/signin')
-      .send(credentials)
-      .expect(200)
-      .end(function (signinErr, signinRes) {
-        // Handle signin error
-        if (signinErr) {
-          return done(signinErr);
-        }
-
-        // Get the userId
-        var userId = user.id;
+  it('Atualizar um evento', function (done) {
+    
 
         // Save a new Evento
         agent.post('/api/eventos')
@@ -80,7 +77,7 @@ describe('CRUD "Evento" - Testes Unitários', function () {
             }
 
             // Update Evento name
-            evento.name = 'WHY YOU GOTTA BE SO MEAN?';
+            evento.nome = 'Novo nome do evento';
 
             // Update an existing Evento
             agent.put('/api/eventos/' + eventoSaveRes.body._id)
@@ -94,16 +91,16 @@ describe('CRUD "Evento" - Testes Unitários', function () {
 
                 // Set assertions
                 (eventoUpdateRes.body._id).should.equal(eventoSaveRes.body._id);
-                (eventoUpdateRes.body.name).should.match('WHY YOU GOTTA BE SO MEAN?');
+                (eventoUpdateRes.body.nome).should.match('Novo nome do evento');
 
                 // Call the assertion callback
                 done();
               });
           });
-      });
+      
   });
 
-  it('should be able to get a list of Eventos if not signed in', function (done) {
+  it('listar os eventos', function (done) {
     // Create new Evento model instance
     var eventoObj = new Evento(evento);
 
@@ -122,7 +119,7 @@ describe('CRUD "Evento" - Testes Unitários', function () {
     });
   });
 
-  it('should be able to get a single Evento if not signed in', function (done) {
+  it('detalhes de um evento', function (done) {
     // Create new Evento model instance
     var eventoObj = new Evento(evento);
 
@@ -131,7 +128,7 @@ describe('CRUD "Evento" - Testes Unitários', function () {
       request(app).get('/api/eventos/' + eventoObj._id)
         .end(function (req, res) {
           // Set assertion
-          res.body.should.be.instanceof(Object).and.have.property('name', evento.name);
+          res.body.should.be.instanceof(Object).and.have.property('nome', evento.nome);
 
           // Call the assertion callback
           done();
@@ -163,18 +160,8 @@ describe('CRUD "Evento" - Testes Unitários', function () {
       });
   });
 
-  it('should be able to delete an Evento if signed in', function (done) {
-    agent.post('/api/auth/signin')
-      .send(credentials)
-      .expect(200)
-      .end(function (signinErr, signinRes) {
-        // Handle signin error
-        if (signinErr) {
-          return done(signinErr);
-        }
-
-        // Get the userId
-        var userId = user.id;
+  it('excluir um evento', function (done) {
+  
 
         // Save a new Evento
         agent.post('/api/eventos')
@@ -203,119 +190,9 @@ describe('CRUD "Evento" - Testes Unitários', function () {
                 done();
               });
           });
-      });
+    
   });
-
-  it('should not be able to delete an Evento if not signed in', function (done) {
-    // Set Evento user
-    evento.user = user;
-
-    // Create new Evento model instance
-    var eventoObj = new Evento(evento);
-
-    // Save the Evento
-    eventoObj.save(function () {
-      // Try deleting Evento
-      request(app).delete('/api/eventos/' + eventoObj._id)
-        .expect(403)
-        .end(function (eventoDeleteErr, eventoDeleteRes) {
-          // Set message assertion
-          (eventoDeleteRes.body.message).should.match('User is not authorized');
-
-          // Handle Evento error error
-          done(eventoDeleteErr);
-        });
-
-    });
-  });
-
-  it('should be able to get a single Evento that has an orphaned user reference', function (done) {
-    // Create orphan user creds
-    var _creds = {
-      username: 'orphan',
-      password: 'M3@n.jsI$Aw3$0m3'
-    };
-
-    // Create orphan user
-    var _orphan = new User({
-      firstName: 'Full',
-      lastName: 'Name',
-      displayName: 'Full Name',
-      email: 'orphan@test.com',
-      username: _creds.username,
-      password: _creds.password,
-      provider: 'local'
-    });
-
-    _orphan.save(function (err, orphan) {
-      // Handle save error
-      if (err) {
-        return done(err);
-      }
-
-      agent.post('/api/auth/signin')
-        .send(_creds)
-        .expect(200)
-        .end(function (signinErr, signinRes) {
-          // Handle signin error
-          if (signinErr) {
-            return done(signinErr);
-          }
-
-          // Get the userId
-          var orphanId = orphan._id;
-
-          // Save a new Evento
-          agent.post('/api/eventos')
-            .send(evento)
-            .expect(200)
-            .end(function (eventoSaveErr, eventoSaveRes) {
-              // Handle Evento save error
-              if (eventoSaveErr) {
-                return done(eventoSaveErr);
-              }
-
-              // Set assertions on new Evento
-              (eventoSaveRes.body.name).should.equal(evento.name);
-              should.exist(eventoSaveRes.body.user);
-              should.equal(eventoSaveRes.body.user._id, orphanId);
-
-              // force the Evento to have an orphaned user reference
-              orphan.remove(function () {
-                // now signin with valid user
-                agent.post('/api/auth/signin')
-                  .send(credentials)
-                  .expect(200)
-                  .end(function (err, res) {
-                    // Handle signin error
-                    if (err) {
-                      return done(err);
-                    }
-
-                    // Get the Evento
-                    agent.get('/api/eventos/' + eventoSaveRes.body._id)
-                      .expect(200)
-                      .end(function (eventoInfoErr, eventoInfoRes) {
-                        // Handle Evento error
-                        if (eventoInfoErr) {
-                          return done(eventoInfoErr);
-                        }
-
-                        // Set assertions
-                        (eventoInfoRes.body._id).should.equal(eventoSaveRes.body._id);
-                        (eventoInfoRes.body.name).should.equal(evento.name);
-                        should.equal(eventoInfoRes.body.user, undefined);
-
-                        // Call the assertion callback
-                        done();
-                      });
-                  });
-              });
-            });
-        });
-    });
-  });
-
+ 
   afterEach(function (done) {
     User.remove().exec(function () {
       Evento.remove().exec(done);

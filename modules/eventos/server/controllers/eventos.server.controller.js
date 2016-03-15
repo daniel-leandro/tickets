@@ -40,7 +40,7 @@ exports.read = function(req, res) {
   // Add a custom field to the Article, for determining if the current User is the "owner".
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
   evento.isCurrentUserOwner = req.user && evento.user && evento.user._id.toString() === req.user._id.toString() ? true : false;
-  evento.tickets = tickets
+  evento.tickets = tickets;
 
   res.jsonp(  evento );
  
@@ -113,7 +113,7 @@ exports.next = function(req, res) {
   startDate.setMinutes(0);
   
 
-  Evento.find({'data' :  {"$gte": startDate } , 'situacao' : 1}).sort('data').populate('user', 'displayName').exec(function(err, eventos) {
+  Evento.find({'data' :  {'$gte': startDate } , 'situacao' : 1}).sort('data').populate('user', 'displayName').exec(function(err, eventos) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

@@ -16,29 +16,21 @@ var user, ticket;
 /**
  * Unit tests
  */
-describe('Ticket Model Unit Tests:', function() {
+describe('Modelo "Ticket" - Testes Unitários:', function() {
   beforeEach(function(done) {
-    user = new User({
-      firstName: 'Full',
-      lastName: 'Name',
-      displayName: 'Full Name',
-      email: 'test@test.com',
-      username: 'username',
-      password: 'password'
-    });
-
-    user.save(function() { 
+     
       ticket = new Ticket({
-        name: 'Ticket Name',
-        user: user
+        nome: 'Daniel Anselmo Leandro',
+        cpf: '123.456.790-00',
+        evento: '12345',
+        already_register: 0
       });
 
       done();
-    });
   });
 
-  describe('Method Save', function() {
-    it('should be able to save without problems', function(done) {
+  describe('Método Salvar', function() {
+    it('salvar o ticket sem problemas', function(done) {
       this.timeout(0);
       return ticket.save(function(err) {
         should.not.exist(err);
@@ -46,8 +38,16 @@ describe('Ticket Model Unit Tests:', function() {
       });
     });
 
-    it('should be able to show an error when try to save without name', function(done) { 
-      ticket.name = '';
+    it('exibir um erro ao tentar salvar um evento sem informar o nome', function(done) { 
+      ticket.nome = '';
+
+      return ticket.save(function(err) {
+        should.exist(err);
+        done();
+      });
+    });
+    it('exibir um erro ao tentar salvar um evento sem informar o CPF', function(done) { 
+      ticket.cpf = '';
 
       return ticket.save(function(err) {
         should.exist(err);

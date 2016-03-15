@@ -21,15 +21,21 @@ describe('Modelo "Evento" - Testes Unitários:', function() {
    beforeEach(function(done) {
     
       evento = new Evento({
-        name: 'Ticket Name',
+        nome: 'Nome do Evento',
+        organizador: 'Nome do Organizador',
+        data: "2016-03-14 00:00:00",
+        lotacao: 100,
+        tipo: 1,
+        situacao: 1,
        
       });
+      done();
 
       
   });
 
   describe('Método Salvar', function() {
-    it('Salvar o evento sem problemas', function(done) {
+    it('salvar o evento sem problemas', function(done) {
       this.timeout(0);
       return evento.save(function(err) {
         should.not.exist(err);
@@ -37,8 +43,8 @@ describe('Modelo "Evento" - Testes Unitários:', function() {
       });
     });
 
-    it('Exibir um erro ao tentar salvar um evento sem informar o nome', function(done) { 
-      evento.name = '';
+    it('exibir um erro ao tentar salvar um evento sem informar o nome', function(done) { 
+      evento.nome = '';
 
       return evento.save(function(err) {
         should.exist(err);

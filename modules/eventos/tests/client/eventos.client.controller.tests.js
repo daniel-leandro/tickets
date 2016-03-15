@@ -49,7 +49,7 @@
       // create mock Evento
       mockEvento = new EventosService({
         _id: '525a8422f6d0f87f0e407a33',
-        name: 'Evento Name'
+        nome: 'Evento Name'
       });
 
     
@@ -69,7 +69,7 @@
       beforeEach(function () {
         // Create a sample Evento object
         sampleEventoPostData = new EventosService({
-          name: 'Evento Name'
+          nome: 'Evento Name'
         });
 
         $scope.vm.evento = sampleEventoPostData;

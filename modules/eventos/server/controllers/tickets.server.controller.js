@@ -13,9 +13,7 @@ var path = require('path'),
  * Create a Ticket
  */
 exports.save = function(req, res) {
-  console.log('create do ticket');
   var ticket = new Ticket(req.body);
-  return 'x';
   ticket.user = req.user;
 
   ticket.save(function(err) {

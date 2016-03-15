@@ -49,7 +49,7 @@
       // create mock Ticket
       mockTicket = new TicketsService({
         _id: '525a8422f6d0f87f0e407a33',
-        name: 'Ticket Name'
+        nome: 'Ticket Name'
       });
 
       // Mock logged in user
@@ -73,7 +73,7 @@
       beforeEach(function () {
         // Create a sample Ticket object
         sampleTicketPostData = new TicketsService({
-          name: 'Ticket Name'
+          nome: 'Ticket Name'
         });
 
         $scope.vm.ticket = sampleTicketPostData;

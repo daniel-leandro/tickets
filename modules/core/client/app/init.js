@@ -22,14 +22,6 @@ angular.module(ApplicationConfiguration.applicationModuleName).run(function ($ro
         }
       });
 
-      if (!allowed) {
-       /* event.preventDefault();
-        $state.go('authentication.signin', {}, {
-          notify: false
-        }).then(function () {
-          $rootScope.$broadcast('$stateChangeSuccess', 'authentication.signin', {}, toState, toParams);
-        });*/
-      }
     }
   });
 
